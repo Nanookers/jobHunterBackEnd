@@ -1,21 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
+using jobHunterBackEnd.Models;
 
-namespace jobHunterBackEnd.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class JobHunterController : ControllerBase
+namespace jobHunterBackEnd.Controllers
 {
-    private readonly ILogger<JobHunterController> _logger;
-
-    public JobHunterController(ILogger<JobHunterController> logger)
+    [ApiController]
+    [Route("[controller]")]
+    public class JobHunterController : ControllerBase
     {
-        _logger = logger;
-    }
+        private readonly ApplicationContext _context;
 
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<Application> Get()
-    {
-        return null;
+        public JobHunterController(ApplicationContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
+        public IEnumerable<Application> GetApplications()
+        {
+            return _context.Applications.ToList(); // Update this line
+        }
     }
 }
